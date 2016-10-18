@@ -133,13 +133,14 @@
 
   - dimension_group: start
     type: time
-    timeframes: [time, date, week, month]
+    timeframes: [raw, time, date, week, month]
     sql: ${TABLE}.start_at
 
   - dimension_group: end
     type: time
-    timeframes: [time, date, week, month]
-    sql: ${TABLE}.end_at
+    timeframes: [raw, time, date, week, month]
+    datatype: epoch
+    sql: ${TABLE}.end_at/1000000
 
   - dimension: number_of_events
     type: number
@@ -147,7 +148,8 @@
 
   - dimension: duration_minutes
     type: number
-    sql: DATEDIFF(MINUTE(${TABLE}.start_at), MINUTE(${TABLE}.end_at))  
+    value_format_name: decimal_2
+    sql: DATEDIFF(MINUTE(${start_raw}), MINUTE((SEC_TO_TIMESTAMP(${end_raw}/1000000))))  
   
   - dimension: time_engaged_with_minutes
     sql: ${TABLE}.time_engaged_with_minutes
