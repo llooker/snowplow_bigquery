@@ -105,7 +105,7 @@
         , a.session_pkey as session_pkey
         , a.domain_sessionidx as domain_sessionidx
         , a.start_at as start_at
-        , least(date_add(a.last_event_at, 1, 'minute'), a.start_at) as end_at
+        , a.last_event_at as end_at
         , a.number_of_events as number_of_events
         , a.time_engaged_with_minutes as time_engaged_with_minutes
         , b.*
@@ -121,7 +121,7 @@
 
   - dimension: session_pkey
     primary_key: true
-    hidden: true
+    #hidden: true
     sql: ${TABLE}.session_pkey
 
   - dimension: domain_userid
@@ -146,10 +146,15 @@
     type: number
     sql: ${TABLE}.number_of_events
 
+#   - dimension: duration_minutes
+#     type: number
+#     value_format_name: decimal_2
+#     sql: DATEDIFF(MINUTE(${start_raw}), MINUTE((SEC_TO_TIMESTAMP(${end_raw}/1000000))))
+#     
   - dimension: duration_minutes
     type: number
     value_format_name: decimal_2
-    sql: DATEDIFF(MINUTE(${start_raw}), MINUTE((SEC_TO_TIMESTAMP(${end_raw}/1000000))))  
+    sql: (((${TABLE}.end_at-${start_raw})/1000000)/60)
   
   - dimension: time_engaged_with_minutes
     sql: ${TABLE}.time_engaged_with_minutes
