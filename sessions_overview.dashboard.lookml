@@ -10,8 +10,8 @@
       height: 500
     - elements: [sessions_bounced_pie, sessions_new_repeat_pie]
       height: 400
-    - elements: [custom_funnel]
-      height: 500
+ #   - elements: [custom_funnel]
+ #     height: 500
     - elements: [custom_funnelx]
       height: 500
 
@@ -202,39 +202,39 @@
     point_style: none
     interpolation: linear
     
-  - name: custom_funnel
-    title: Custom Funnel Analysis
-    type: looker_column
-    model: snowplow
-    explore: event
-    measures: [funnel.event_1_count_sessions, funnel.event_2_count_sessions, funnel.event_3_count_sessions,
-      funnel.event_4_count_sessions]
+#   - name: custom_funnel
+#     title: Custom Funnel Analysis
+#     type: looker_column
+#     model: snowplow
+#     explore: event
+#     measures: [funnel.event_1_count_sessions, funnel.event_2_count_sessions, funnel.event_3_count_sessions,
+#       funnel.event_4_count_sessions]
 #     listen:
 #       event_1: event.event_1
 #       event_2: event.event_2
 #       event_3: event.event_3
 #       event_4: event.event_4
-    sorts: [session.start_date desc, funnel.event_1_count_sessions desc]
-    limit: 500
-    show_dropoff: true
-    show_value_labels: true
-    show_view_names: true
-    show_null_labels: false
-    y_axis_gridlines: true
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_combined: true
-    y_axis_labels: [Count Sessions]
-    x_axis_gridlines: false
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    series_labels:
-      funnel.event_1_count_sessions: Event 1
-      funnel.event_2_count_sessions: Event 2
-      funnel.event_3_count_sessions: Event 3
-      funnel.event_4_count_sessions: Event 4
-    stacking: ''
-    x_axis_scale: auto
+#     sorts: [session.start_date desc, funnel.event_1_count_sessions desc]
+#     limit: 500
+#     show_dropoff: true
+#     show_value_labels: true
+#     show_view_names: true
+#     show_null_labels: false
+#     y_axis_gridlines: true
+#     show_y_axis_labels: true
+#     show_y_axis_ticks: true
+#     y_axis_combined: true
+#     y_axis_labels: [Count Sessions]
+#     x_axis_gridlines: false
+#     show_x_axis_label: true
+#     show_x_axis_ticks: true
+#     series_labels:
+#       funnel.event_1_count_sessions: Event 1
+#       funnel.event_2_count_sessions: Event 2
+#       funnel.event_3_count_sessions: Event 3
+#       funnel.event_4_count_sessions: Event 4
+#     stacking: ''
+#     x_axis_scale: auto
  
   - name: custom_funnelx
     title: Custom Funnel Analysis
