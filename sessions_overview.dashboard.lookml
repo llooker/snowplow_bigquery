@@ -12,6 +12,8 @@
       height: 400
     - elements: [custom_funnel]
       height: 500
+    - elements: [custom_funnelx]
+      height: 500
 
   filters:
   
@@ -234,4 +236,44 @@
     stacking: ''
     x_axis_scale: auto
  
-
+  - name: custom_funnelx
+    title: Custom Funnel Analysis
+    type: looker_column
+    model: snowplow
+    explore: event
+    measures: [funnel.eventx_1_count_sessions, funnel.eventx_2_count_sessions, funnel.eventx_3_count_sessions,
+      funnel.eventx_4_count_sessions]
+    sorts: [funnel.eventx_1_count_sessions desc]
+    limit: '500'
+    column_limit: '50'
+    query_timezone: America/Los_Angeles
+    stacking: ''
+    show_value_labels: true
+    show_dropoff: true
+    label_density: 25
+    legend_position: center
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: true
+    limit_displayed_rows: false
+    y_axis_combined: true
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    x_axis_scale: auto
+    y_axis_scale_mode: linear
+    ordering: none
+    series_labels:
+      funnel.eventx_1_count_sessions: Event 1
+      funnel.eventx_2_count_sessions: Event 2
+      funnel.eventx_3_count_sessions: Event 3
+      funnel.eventx_4_count_sessions: Event 4
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: '#808080'
+  
+  

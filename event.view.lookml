@@ -56,6 +56,9 @@
   - dimension: event
     sql: ${TABLE}.event
     
+  - dimension: eventx
+    sql: ${TABLE}.os_family
+    
   - dimension: event_type
     sql: |
       case
@@ -63,6 +66,7 @@
         when ${event} = 'struct' then ${structured_event.action}
         else ${event}
       end
+
   - dimension: event_id
     primary_key: true
     sql: ${TABLE}.event_id
@@ -509,6 +513,62 @@
     type: number
     sql: COUNT(DISTINCT CASE WHEN {% condition event_4 %} ${event_type} {% endcondition %} THEN CONCAT(${user.domain_userid},  CAST(${domain_session_index} as string)) END)
 
+## Fake Funnel Fields & Events
+
+  - filter: eventx_1
+    suggest_explore: event
+    suggest_dimension: eventx
+
+  - filter: eventx_2
+    suggest_explore: event
+    suggest_dimension: eventx
+  
+  - filter: eventx_3
+    suggest_explore: event
+    suggest_dimension: eventx
+  
+  - filter: eventx_4
+    suggest_explore: event
+    suggest_dimension: eventx
+
+  - measure: funnel.eventx_1_count_sessions
+    type: count
+ #   sql: COUNT(WHERE ${eventx}="Mac OS X")
+    filter:
+      eventx: "Mac OS X"
+
+  - measure: funnel.eventx_2_count_sessions
+    type: count
+ #   sql: COUNT(WHERE ${eventx}="Mac OS X")
+    filter:
+      eventx: "Windows"
+      
+  - measure: funnel.eventx_3_count_sessions
+    type: count
+ #   sql: COUNT(WHERE ${eventx}="Mac OS X")
+    filter:
+      eventx: "iOS"
+      
+  - measure: funnel.eventx_4_count_sessions
+    type: count
+ #   sql: COUNT(WHERE ${eventx}="Mac OS X")
+    filter:
+      eventx: "Android"
+      
+#   - measure: funnel.eventx_2_count_sessions
+#     type: number
+#     #sql: COUNT(WHERE ${eventx}="Windows")
+#     sql: COUNT(DISTINCT CASE WHEN {% condition eventx_2 %} ${eventx} {% endcondition %} THEN CAST(${eventx} as string) END)
+# 
+#   - measure: funnel.eventx_3_count_sessions
+#     type: number
+#     #sql: COUNT(WHERE ${eventx}="iOS")
+#     sql: COUNT(DISTINCT CASE WHEN {% condition eventx_3 %} ${eventx} {% endcondition %} THEN CAST(${eventx} as string) END)
+# 
+#   - measure: funnel.eventx_4_count_sessions
+#     type: number
+#    # sql: COUNT(WHERE ${eventx}="Android")
+#     sql: COUNT(DISTINCT CASE WHEN {% condition eventx_4 %} ${eventx} {% endcondition %} THEN CAST(${eventx} as string) END)
 
 # Sets #
 
